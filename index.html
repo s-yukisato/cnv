@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue Sample</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="main.js"></script>
+  <title>Demo Page</title>
 </head>
 <body>
   <div id="app">
-    <p>{{message}}</p>
+    <p>{{ message }}</p>
     <input name="x" type="range" min="0" max="400" v-model="data.x">
     <label for="x">{{data.x}}</label>
     <input name="y" type="range" min="0" max="400" v-model="data.y">
@@ -18,7 +20,5 @@
     <label for="h">{{data.h}}</label>
     <canvas id="time-region" width="400" height="400"></canvas>
   </div>
-  <script src="https://unpkg.com/vue@next"></script>
-  <script src="components/main.js"></script>
 </body>
 </html>
