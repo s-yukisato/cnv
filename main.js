@@ -1,4 +1,9 @@
+import { component } from './component.js'
+
 const app = Vue.createApp({
+    components: {
+        cm: component
+    },
     setup() {
         const data = Vue.reactive({
             x: 100,
@@ -14,6 +19,7 @@ const app = Vue.createApp({
             else data.isMount = true
             return `${data.x}, ${data.y} 幅${data.w} 高さ${data.h}`
         });
+        // methods
         const draw = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             ctx.fillRect(data.x, data.y, data.w, data.h);

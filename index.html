@@ -9,16 +9,18 @@
 <body>
   <div id="app">
     <p>{{ message }}</p>
+    <cm></cm>
     <input name="x" type="range" min="0" max="400" v-model="data.x">
     <label for="x">{{data.x}}</label>
     <input name="y" type="range" min="0" max="400" v-model="data.y">
     <label for="y">{{data.y}}</label>
     <input name="w" type="range" min="0" max="400" v-model="data.w">
     <label for="w">{{data.w}}</label>
-    <input name="h" type="range" min="0" max="400" v-model="data.h">
+    <input name="h" type="range" min="0" max="400" v-model="data.am">
     <label for="h">{{data.h}}</label>
     <canvas id="time-region" width="400" height="400"></canvas>
   </div>
   <script src="main.js"></script>
 </body>
 </html>
+
