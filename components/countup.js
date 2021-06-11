@@ -1,4 +1,4 @@
-export const component = {
+const countUp = {
     props: [],
     setup() {
         const count = Vue.ref(0);
@@ -11,9 +11,9 @@ export const component = {
         }
     },
     template: `
-    <div>
+    <div class="btn">
         {{count}}
-        <button @click="countUp()"></button>
+        <button @click="countUp()">カウントアップ</button>
     </div>
     `
 };

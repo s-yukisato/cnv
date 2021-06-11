@@ -93,7 +93,3 @@ function func_y_graph(a, f, n) {
         )/Math.PI
     )
 }
-
-export default {
-    Graph
-}
