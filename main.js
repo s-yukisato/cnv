@@ -1,4 +1,4 @@
-import { component } from './component.js'
+import { component } from 'https://s-yukisato.github.io/cnv/component.js'
 
 const app = Vue.createApp({
     components: {
