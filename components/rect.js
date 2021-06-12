@@ -6,6 +6,7 @@ const canvasRect = {
             y: 100,
             w: 50,
             h: 100,
+            color: "blue",
             isMount: false
         });
         let canvas = Vue.ref(null)
@@ -13,10 +14,11 @@ const canvasRect = {
         const message = Vue.computed(() => {
             if (data.isMount) draw()
             else data.isMount = true
-            return `${data.x}, ${data.y} 幅${data.w} 高さ${data.h}`
+            return `${data.x}, ${data.y} 幅${data.w} 高さ${data.h} 色${data.color}`
         });
         // methods
         const draw = () => {
+            ctx.fillStyle = data.color
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             ctx.fillRect(data.x, data.y, data.w, data.h);
             ctx.stroke();
@@ -42,6 +44,7 @@ const canvasRect = {
         <label for="w">{{data.w}}</label>
         <input name="h" type="range" min="0" max="400" v-model="data.h">
         <label for="h">{{data.h}}</label>
+        <input type="color" id="color" v-model="data.color">
         <canvas id="time-region" width="400" height="400"></canvas>
     </div>
     `

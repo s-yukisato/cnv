@@ -1,7 +1,8 @@
 const app = Vue.createApp({
     components: {
-        countUp,
-        canvasRect
+        // countUp,
+        // canvasRect,
+        drawFunction
     },
 })
 app.mount('#app')
