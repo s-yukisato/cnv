@@ -23,10 +23,13 @@ const drawFunction = {
         const state = Vue.reactive({
             canvas: null,
             ctx: null,
+            canvas2: null,
+            ctx2: null,
             sinAmplitudeList: [],
             sinFrequencyList: [],
             cosAmplitudeList: [],
             cosFrequencyList: [],
+            sampleNumber: 10,
             formula: "y=cos(x)",
             text: "",
             isCorrectFormula: true,
@@ -50,9 +53,9 @@ const drawFunction = {
             }
             return val
         }
-        const Graph = (ctx, clear=true, P = 10, color = "blue") => {
+        const Graph = (ctx, clear = true, P = 10, color = "blue") => {
             // canvas上のデータを全て消す
-            if(clear)  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+            if (clear) ctx.clearRect(0, 0, WIDTH, HEIGHT);
             // 補助線
             ctx.strokeStyle = "black"
             auxiliary_line(ctx)
@@ -164,6 +167,11 @@ const drawFunction = {
             context.stroke();
         }
         const dft = () => {
+            // canvas上のデータを全て消す
+            state.ctx2.clearRect(0, 0, WIDTH, HEIGHT);
+            // 補助線
+            state.ctx2.strokeStyle = "black"
+            auxiliary_line(state.ctx2)
             let f = new Array(P);
             // データサンプリング
             for (let m = 0; m < P; m++) {
@@ -185,7 +193,7 @@ const drawFunction = {
                 ai /= P;
                 x = Math.sqrt(4.0 * ar * ar + 4.0 * ai * ai);
                 x = Math.round(x * 100) / 100
-                draw_dft(state.ctx, x, n)
+                draw_dft(state.ctx2, x, n)
                 console.log(
                     n,
                     Math.round(ar * 100) / 100,
@@ -198,6 +206,8 @@ const drawFunction = {
         Vue.onMounted(() => {
             state.canvas = document.querySelector('#canvas')
             state.ctx = canvas.getContext('2d')
+            state.canvas2 = document.querySelector('#canvas2')
+            state.ctx2 = canvas2.getContext('2d')
         })
         return {
             state,
@@ -207,44 +217,48 @@ const drawFunction = {
         }
     },
     template: `
-    <div class="d-flex justify-content-center">
-        <div class="w-50 m-2">
-            <form class="form-inline">
-                <div class="row">
-                    <div class="col-md-10">
-                        <input v-model="state.formula" class="form-control p-3" type="text" placeholder="Formula" aria-label="Search">
+        <div class="d-flex justify-content-center">
+            <div class="w-50 m-2">
+                <form class="form-inline">
+                    <div>
+                        <p>Sample Number: <input v-model="state.sampleNumber" class="form-control" type="number"></p>
                     </div>
-                    <div class="col-md-2">
-                        <button class="m-1 btn btn-outline-success" @click="eval()">Draw!</button>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input v-model="state.formula" class="form-control p-3" type="text" placeholder="Formula" aria-label="Search">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="m-1 btn btn-outline-success" @click="eval()">Draw!</button>
+                        </div>
                     </div>
-                </div>
-            </form>
-            <div>
-                <div v-if="!state.isCorrectFormula" class="m-2 p-2 alert alert-danger" role="alert">
-                    <p>This formula is not available!</p>
-                </div>
-                <div v-if="state.isCorrectFormula">
-                    <p class="text-center text-primary p-3">{{ state.text }}</p>
+                </form>
+                <div>
+                    <div v-if="!state.isCorrectFormula" class="m-2 p-2 alert alert-danger" role="alert">
+                        <p>This formula is not available!</p>
+                    </div>
+                    <div v-if="state.isCorrectFormula">
+                        <p class="text-center text-primary p-3 display-4">{{ state.text }}</p>
+                    </div>
                 </div>
             </div>
+            <div class="w-50 m-2">
+                <table class="table table-light table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Formula</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(formula, key) in state.record" @click="back(key)">
+                            <td>{{ key + 1 }}</td>
+                            <td class="text-break">{{ formula }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="w-50 m-2">
-            <table class="table table-light table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Number</th>
-                        <th>Formula</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(formula, key) in state.record" @click="back(key)">
-                        <td>{{ key + 1 }}</td>
-                        <td class="text-break">{{ formula }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-        <canvas style="position: absolute; top: 500px; left: 200px;" id="canvas" width="400" height="400"></canvas>
+        <canvas class="m-3" id="canvas" width="400" height="400"></canvas>
+        <canvas class="m-3" id="canvas2" width="400" height="400"></canvas>
     `
 }
