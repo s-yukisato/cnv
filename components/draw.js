@@ -213,7 +213,10 @@ const drawFunction = {
             state,
             eval,
             func,
-            back
+            back,
+            dft,
+            func_dft,
+            draw_dft,
         }
     },
     template: `
@@ -228,7 +231,7 @@ const drawFunction = {
                             <input v-model="state.formula" class="form-control p-3" type="text" placeholder="Formula" aria-label="Search">
                         </div>
                         <div class="col-md-2">
-                            <button class="m-1 btn btn-outline-success" @click="eval()">Draw!</button>
+                            <button class="m-2 btn btn-outline-success" @click="eval">Draw!</button>
                         </div>
                     </div>
                 </form>
