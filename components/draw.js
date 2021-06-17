@@ -222,19 +222,17 @@ const drawFunction = {
     template: `
         <div class="d-flex justify-content-center">
             <div class="w-50 m-2">
-                <form class="form-inline">
-                    <div>
-                        <p>Sample Number: <input v-model="state.sampleNumber" class="form-control" type="number"></p>
+                <div>
+                    <p>Sample Number: <input v-model="state.sampleNumber" class="form-control" type="number"></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <input v-model="state.formula" class="form-control p-3" type="text" placeholder="Formula" aria-label="Search">
                     </div>
-                    <div class="row">
-                        <div class="col-md-10">
-                            <input v-model="state.formula" class="form-control p-3" type="text" placeholder="Formula" aria-label="Search">
-                        </div>
-                        <div class="col-md-2">
-                            <button class="m-2 btn btn-outline-success" @click="eval">Draw!</button>
-                        </div>
+                    <div class="col-md-2">
+                        <button class="m-2 btn btn-outline-success" @click="eval">Draw!</button>
                     </div>
-                </form>
+                </div>
                 <div>
                     <div v-if="!state.isCorrectFormula" class="m-2 p-2 alert alert-danger" role="alert">
                         <p>This formula is not available!</p>
